@@ -1,26 +1,25 @@
-# Online Supermarket Management System (Project 07)
+# Online Supermarket Management System
 
-Course project for **Analysis and Design of Information Systems**, PTIT.
+A web application for an online supermarket, built with JSP and JDBC following the MVC model on J2EE.
 
-- Student: Luu Anh Dung
-- Project code: 07
-- Class name suffix: `6`
+## Features
 
-## Implemented modules
+**Customer registers as a member**
+Home → registration form → confirm information → the system checks for duplicate username, phone and email, then saves the customer.
 
-1. **Customer registers as a member**: Home → Registration form → Confirm information → save customer.
-2. **Warehouse staff imports goods from suppliers**: Login → Warehouse home → search and select supplier → search items and add quantity and import price (repeat) → Submit → save the import order and update stock.
+**Warehouse staff imports goods from suppliers**
+Login → warehouse staff home → search and select a supplier → search items and enter quantity and import price (repeat for every item) → Submit → the system saves the import order with its details and updates the stock quantity.
 
-## Technology (MVC on J2EE)
+## Technology
 
 | Layer | Content |
 |---|---|
-| View | `WebContent/UI*.jsp` (customer and shared pages), `WebContent/nvkho/UI*.jsp` (warehouse staff pages) |
+| View | `WebContent/UI*.jsp`, `WebContent/nvkho/UI*.jsp` |
 | Controller | `WebContent/do*.jsp`, `WebContent/nvkho/do*.jsp` |
-| Model | `src/model` (entity classes), `src/dao` (data access classes, JDBC) |
-| Database | MySQL 8.0, script `database/supermarket6.sql` (tables, stored procedures, sample data) |
+| Model | `src/model` (entity classes), `src/dao` (data access classes) |
+| Database | MySQL 8.0: tables, stored procedures, sample data |
 
-The application runs on Apache Tomcat 9 with JDK 17 and uses MySQL Connector/J 8.4.0.
+Runtime: Apache Tomcat 9, JDK 17, MySQL Connector/J 8.4.0.
 
 ## Project structure
 
@@ -32,9 +31,9 @@ src/model/                     Member6, Customer6, Staff6, WarehouseStaff6,
 src/dao/                       DAO6, MemberDAO6, CustomerDAO6, SupplierDAO6,
                                ItemDAO6, ImportOrderDAO6
 WebContent/                    UIHome6, UIRegistration6, UIConfirm6, doAddCustomer6,
-                               UILogin6, doLogin6
+                               UILogin6, doLogin6, style.css
 WebContent/nvkho/              UIWarehouseHome6, UISearchSupplier6, UIImport6, doSaveImport6
-docs/                          UI design images and PlantUML source of the design diagrams
+docs/                          UI design images and PlantUML diagrams
 ```
 
 ## Run with Docker
@@ -43,16 +42,19 @@ docs/                          UI design images and PlantUML source of the desig
 docker compose up -d --build
 ```
 
-Then open http://localhost:8080
+Open http://localhost:8080
 
-- MySQL is published on host port `3307` (user `root`, password `123456`).
-- To reset the database: `docker compose down -v`, then run the command above again.
+- Stop: `docker compose down`
+- Reset the database to the sample data: `docker compose down -v`, then run the command above again.
+- MySQL is available on host port `3307` (user `root`, password `123456`).
 
-## Sample accounts (password `123456`)
+## Sample accounts
+
+Password for all accounts: `123456`
 
 | Role | Username |
 |---|---|
 | Warehouse staff | `kho1`, `kho2`, `kho3`, `kho4` |
-| Customer (for testing duplicate username / phone / email on registration) | `khach1` … `khach5` |
+| Customer | `khach1` … `khach5` |
 
-Supplier search examples: `Anh`, `Van A`. Item search examples: `Fish`, `Milk`.
+Search examples: supplier `Anh`, `Van A`; item `Fish`, `Milk`.
