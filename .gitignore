@@ -1,0 +1,15 @@
+# build output
+classes/
+build/
+bin/
+*.class
+*.war
+
+# IDE / OS
+.idea/
+.vscode/
+.settings/
+.project
+.classpath
+*.iml
+.DS_Store
