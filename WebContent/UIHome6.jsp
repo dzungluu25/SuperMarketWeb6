@@ -5,13 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h2>Online Supermarket</h2>
-	<form action="UIRegistration6.jsp" method="get">
-		<input type="hidden" name="new" value="1" />
-		<input type="submit" value="Register as member" />
-	</form>
-	<p><a href="UILogin6.jsp">Login</a></p>
+	<div class="box">
+		<h2>Online Supermarket</h2>
+		<div class="actions">
+			<form action="UIRegistration6.jsp" method="get">
+				<input type="hidden" name="new" value="1" />
+				<input type="submit" value="Register as member" />
+			</form>
+		</div>
+		<p class="link"><a href="UILogin6.jsp">Login</a></p>
+	</div>
 </body>
 </html>

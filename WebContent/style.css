@@ -1,0 +1,147 @@
+/* Giao dien chung cho cac trang: khung o giua, nut xanh nhat giong ban thiet ke */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #222;
+	background: #f2f4f7;
+	margin: 0;
+	padding: 40px 16px;
+}
+
+.box {
+	max-width: 520px;
+	margin: 0 auto;
+	background: #fff;
+	border: 1px solid #c8ccd2;
+	border-radius: 6px;
+	padding: 24px 32px 28px;
+}
+
+.box.wide {
+	max-width: 1000px;
+}
+
+h2 {
+	text-align: center;
+	margin: 0 0 20px;
+}
+
+h3 {
+	margin: 24px 0 8px;
+	font-size: 16px;
+}
+
+/* bang nhap lieu: nhan ben trai, o nhap ben phai */
+table.form {
+	margin: 0 auto;
+}
+
+table.form td {
+	padding: 6px 8px;
+}
+
+table.form td:first-child {
+	text-align: right;
+	white-space: nowrap;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=date],
+	input[type=number] {
+	padding: 6px 8px;
+	border: 1px solid #999;
+	border-radius: 3px;
+	font-size: 14px;
+	width: 240px;
+	box-sizing: border-box;
+}
+
+input[type=submit] {
+	background: #99ccff;
+	border: 1px solid #555;
+	border-radius: 3px;
+	padding: 6px 20px;
+	font-size: 14px;
+	cursor: pointer;
+	min-width: 90px;
+}
+
+input[type=submit]:hover {
+	background: #7fbaf5;
+}
+
+input[type=submit]:disabled {
+	background: #ddd;
+	color: #888;
+	cursor: default;
+}
+
+/* hang nut o giua */
+.actions {
+	text-align: center;
+	margin-top: 18px;
+}
+
+.actions form {
+	display: inline-block;
+	margin: 0 6px;
+}
+
+/* o tim kiem tren cung mot dong */
+.search {
+	text-align: center;
+	margin-bottom: 12px;
+}
+
+.search form {
+	display: inline-block;
+	margin: 0 4px;
+}
+
+/* bang danh sach */
+table.list {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 8px 0 4px;
+}
+
+table.list th, table.list td {
+	border: 1px solid #999;
+	padding: 6px 8px;
+	text-align: left;
+}
+
+table.list th {
+	background: #e6eef8;
+}
+
+table.list td.num {
+	text-align: right;
+}
+
+table.list input[type=number] {
+	width: 110px;
+}
+
+.info {
+	margin: 4px 0;
+}
+
+.total {
+	text-align: right;
+	margin-top: 8px;
+}
+
+.error {
+	color: #c00;
+	text-align: center;
+}
+
+.notice {
+	text-align: center;
+	color: #555;
+}
+
+.link {
+	text-align: center;
+	margin-top: 16px;
+}

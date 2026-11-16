@@ -91,24 +91,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Import order</title>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
+	<div class="box wide">
 	<h2>Import order</h2>
-	<p>Supplier: <b><%=esc(io.getSupplier().getName())%></b> - <%=esc(io.getSupplier().getAddress())%></p>
-	<p>Warehouse staff: <%=esc(ws.getFullName())%></p>
+	<p class="info">Supplier: <b><%=esc(io.getSupplier().getName())%></b> - <%=esc(io.getSupplier().getAddress())%></p>
+	<p class="info">Warehouse staff: <b><%=esc(ws.getFullName())%></b></p>
 	<% if (msg != null) { %>
-	<p style="color: red"><%=esc(msg)%></p>
+	<p class="error"><%=esc(msg)%></p>
 	<% } %>
 
-	<form action="UIImport6.jsp" method="get">
-		<input type="hidden" name="action" value="search" />
-		Item name: <input type="text" name="keyword" value="<%=esc(keyword)%>" required />
-		<input type="submit" value="Search" />
-	</form>
+	<div class="search">
+		<form action="UIImport6.jsp" method="get">
+			<input type="hidden" name="action" value="search" />
+			Item name: <input type="text" name="keyword" value="<%=esc(keyword)%>" required />
+			<input type="submit" value="Search" />
+		</form>
+	</div>
 
 	<% if (listItem != null && listItem.size() > 0) { %>
 	<h3>Search results</h3>
-	<table border="1" style="border-collapse: collapse">
+	<table class="list">
 		<tr>
 			<th>Id</th><th>Name</th><th>Unit</th><th>In stock</th><th>Quantity</th><th>Import price</th><th></th>
 		</tr>
@@ -118,8 +122,8 @@
 			<td><%=esc(it.getName())%></td>
 			<td><%=esc(it.getUnit())%></td>
 			<td><%=it.getStockQuantity()%></td>
-			<td><input type="number" name="quantity" min="1" required style="width: 80px" form="add<%=it.getId()%>" /></td>
-			<td><input type="number" name="price" min="0" step="any" required style="width: 110px" form="add<%=it.getId()%>" /></td>
+			<td><input type="number" name="quantity" min="1" required form="add<%=it.getId()%>" /></td>
+			<td><input type="number" name="price" min="0" step="any" required form="add<%=it.getId()%>" /></td>
 			<td>
 				<form id="add<%=it.getId()%>" action="UIImport6.jsp" method="post">
 					<input type="hidden" name="action" value="add" />
@@ -133,7 +137,7 @@
 	<% } %>
 
 	<h3>Imported items</h3>
-	<table border="1" style="border-collapse: collapse">
+	<table class="list">
 		<tr>
 			<th>No.</th><th>Item</th><th>Unit</th><th>Quantity</th><th>Unit price</th><th>Amount</th>
 		</tr>
@@ -143,19 +147,25 @@
 			<td><%=++i%></td>
 			<td><%=esc(d.getItem().getName())%></td>
 			<td><%=esc(d.getItem().getUnit())%></td>
-			<td><%=d.getQuantity()%></td>
-			<td><%=String.format("%,.0f", d.getImportPrice())%></td>
-			<td><%=String.format("%,.0f", d.getAmount())%></td>
+			<td class="num"><%=d.getQuantity()%></td>
+			<td class="num"><%=String.format("%,.0f", d.getImportPrice())%></td>
+			<td class="num"><%=String.format("%,.0f", d.getAmount())%></td>
 		</tr>
 		<% } %>
+		<% if (io.getListDetail().size() == 0) { %>
+		<tr><td colspan="6" class="notice">No item added yet.</td></tr>
+		<% } %>
 	</table>
-	<p>Total amount: <b><%=String.format("%,.0f", io.getTotalAmount())%></b></p>
+	<p class="total">Total amount: <b><%=String.format("%,.0f", io.getTotalAmount())%></b></p>
 
-	<form action="doSaveImport6.jsp" method="post" style="display: inline">
-		<input type="submit" value="Submit" <%=io.getListDetail().size() == 0 ? "disabled" : ""%> />
-	</form>
-	<form action="UIWarehouseHome6.jsp" method="get" style="display: inline">
-		<input type="submit" value="Cancel" />
-	</form>
+	<div class="actions">
+		<form action="doSaveImport6.jsp" method="post">
+			<input type="submit" value="Submit" <%=io.getListDetail().size() == 0 ? "disabled" : ""%> />
+		</form>
+		<form action="UIWarehouseHome6.jsp" method="get">
+			<input type="submit" value="Cancel" />
+		</form>
+	</div>
+	</div>
 </body>
 </html>

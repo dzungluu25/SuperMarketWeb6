@@ -52,10 +52,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Confirm information</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h2>Confirm registration information</h2>
-	<table>
+	<div class="box">
+	<h2>Confirm information</h2>
+	<table class="form">
 		<tr><td>Full name:</td><td><%=esc(c.getFullName())%></td></tr>
 		<tr><td>Date of birth:</td><td><%=dob%></td></tr>
 		<tr><td>Address:</td><td><%=esc(c.getAddress())%></td></tr>
@@ -63,11 +65,14 @@
 		<tr><td>Email:</td><td><%=esc(c.getEmail())%></td></tr>
 		<tr><td>Username:</td><td><%=esc(c.getUsername())%></td></tr>
 	</table>
-	<form action="doAddCustomer6.jsp" method="post" style="display: inline">
-		<input type="submit" value="Confirm" />
-	</form>
-	<form action="UIRegistration6.jsp" method="get" style="display: inline">
-		<input type="submit" value="Cancel" />
-	</form>
+	<div class="actions">
+		<form action="UIRegistration6.jsp" method="get">
+			<input type="submit" value="Cancel" />
+		</form>
+		<form action="doAddCustomer6.jsp" method="post">
+			<input type="submit" value="Confirm" />
+		</form>
+	</div>
+	</div>
 </body>
 </html>

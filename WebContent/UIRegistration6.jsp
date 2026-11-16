@@ -20,14 +20,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Member registration</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h2>Member registration</h2>
+	<div class="box">
+	<h2>Customer registration</h2>
 	<% if (err != null) { %>
-	<p style="color: red"><%=esc(err)%></p>
+	<p class="error"><%=esc(err)%></p>
 	<% } %>
 	<form action="UIConfirm6.jsp" method="post">
-		<table>
+		<table class="form">
 			<tr>
 				<td>Full name:</td>
 				<td><input type="text" name="name" value="<%=c != null ? esc(c.getFullName()) : ""%>" required /></td>
@@ -60,12 +62,12 @@
 				<td>Confirm password:</td>
 				<td><input type="password" name="confirmPassword" required /></td>
 			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Add" /></td>
-			</tr>
 		</table>
+		<div class="actions">
+			<input type="submit" value="Add" />
+		</div>
 	</form>
-	<p><a href="UIHome6.jsp">Back to home</a></p>
+	<p class="link"><a href="UIHome6.jsp">Back to home</a></p>
+	</div>
 </body>
 </html>

@@ -20,21 +20,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Search supplier</title>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
+	<div class="box wide">
 	<h2>Search supplier</h2>
-	<form action="UISearchSupplier6.jsp" method="get">
-		Supplier name: <input type="text" name="keyword" value="<%=esc(keyword)%>" required />
-		<input type="submit" value="Search" />
-	</form>
-	<form action="UIWarehouseHome6.jsp" method="get">
-		<input type="submit" value="Cancel" />
-	</form>
+	<div class="search">
+		<form action="UISearchSupplier6.jsp" method="get">
+			Supplier name: <input type="text" name="keyword" value="<%=esc(keyword)%>" required />
+			<input type="submit" value="Search" />
+		</form>
+		<form action="UIWarehouseHome6.jsp" method="get">
+			<input type="submit" value="Cancel" />
+		</form>
+	</div>
 
 	<% if (listSupplier != null && listSupplier.size() == 0) { %>
-	<p style="color: red">No supplier found.</p>
+	<p class="error">No supplier found.</p>
 	<% } else if (listSupplier != null) { %>
-	<table border="1" style="border-collapse: collapse">
+	<table class="list">
 		<tr>
 			<th>Id</th><th>Name</th><th>Address</th><th>Phone</th><th>Email</th><th></th>
 		</tr>
@@ -50,5 +54,6 @@
 		<% } %>
 	</table>
 	<% } %>
+	</div>
 </body>
 </html>

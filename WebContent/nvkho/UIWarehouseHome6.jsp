@@ -13,12 +13,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Warehouse staff home</title>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
-	<h2>Warehouse staff home</h2>
-	<p>Hello: <%=esc(ws.getFullName())%></p>
-	<form action="UISearchSupplier6.jsp" method="get">
-		<input type="submit" value="Import goods" />
-	</form>
+	<div class="box">
+		<h2>Warehouse staff home</h2>
+		<p class="notice">Warehouse staff: <b><%=esc(ws.getFullName())%></b></p>
+		<div class="actions">
+			<form action="UISearchSupplier6.jsp" method="get">
+				<input type="submit" value="Import goods" />
+			</form>
+		</div>
+	</div>
 </body>
 </html>
