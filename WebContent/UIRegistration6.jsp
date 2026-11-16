@@ -28,7 +28,7 @@
 	<% if (err != null) { %>
 	<p class="error"><%=esc(err)%></p>
 	<% } %>
-	<form action="UIConfirm6.jsp" method="post">
+	<form id="regForm" action="UIConfirm6.jsp" method="post">
 		<table class="form">
 			<tr>
 				<td>Full name:</td>
@@ -63,11 +63,14 @@
 				<td><input type="password" name="confirmPassword" required /></td>
 			</tr>
 		</table>
-		<div class="actions">
-			<input type="submit" value="Add" />
-		</div>
 	</form>
-	<p class="link"><a href="UIHome6.jsp">Back to home</a></p>
+	<div class="actions">
+		<form action="UIHome6.jsp" method="get">
+			<input type="submit" value="Back" />
+		</form>
+		<input type="submit" value="Add" form="regForm" />
+	</div>
+	<p class="link">Already a member? <a href="UILogin6.jsp">Login</a></p>
 	</div>
 </body>
 </html>

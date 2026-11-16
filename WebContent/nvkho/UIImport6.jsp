@@ -159,6 +159,9 @@
 	<p class="total">Total amount: <b><%=String.format("%,.0f", io.getTotalAmount())%></b></p>
 
 	<div class="actions">
+		<form action="UISearchSupplier6.jsp" method="get">
+			<input type="submit" value="Back" />
+		</form>
 		<form action="doSaveImport6.jsp" method="post">
 			<input type="submit" value="Submit" <%=io.getListDetail().size() == 0 ? "disabled" : ""%> />
 		</form>

@@ -20,6 +20,10 @@
 		<h2>Warehouse staff home</h2>
 		<p class="notice">Warehouse staff: <b><%=esc(ws.getFullName())%></b></p>
 		<div class="actions">
+			<form action="../UILogin6.jsp" method="get">
+				<input type="hidden" name="logout" value="1" />
+				<input type="submit" value="Logout" />
+			</form>
 			<form action="UISearchSupplier6.jsp" method="get">
 				<input type="submit" value="Import goods" />
 			</form>

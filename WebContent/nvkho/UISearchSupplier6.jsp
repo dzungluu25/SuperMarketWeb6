@@ -31,7 +31,7 @@
 			<input type="submit" value="Search" />
 		</form>
 		<form action="UIWarehouseHome6.jsp" method="get">
-			<input type="submit" value="Cancel" />
+			<input type="submit" value="Back" />
 		</form>
 	</div>
 

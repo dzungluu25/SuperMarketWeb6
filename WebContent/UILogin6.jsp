@@ -11,6 +11,9 @@
 	<div class="box">
 		<h2>Login</h2>
 		<%
+			// dang xuat: xoa thong tin nhan vien kho trong session
+			if (request.getParameter("logout") != null)
+				session.invalidate();
 			String err = request.getParameter("err");
 			if ("timeout".equalsIgnoreCase(err)) {
 		%>
@@ -20,7 +23,7 @@
 		<% } else if ("role".equalsIgnoreCase(err)) { %>
 		<p class="error">This account is not allowed to import goods!</p>
 		<% } %>
-		<form action="doLogin6.jsp" method="post">
+		<form id="loginForm" action="doLogin6.jsp" method="post">
 			<table class="form">
 				<tr>
 					<td>Username:</td>
@@ -31,10 +34,13 @@
 					<td><input type="password" name="password" required /></td>
 				</tr>
 			</table>
-			<div class="actions">
-				<input type="submit" value="Login" />
-			</div>
 		</form>
+		<div class="actions">
+			<form action="UIHome6.jsp" method="get">
+				<input type="submit" value="Back" />
+			</form>
+			<input type="submit" value="Login" form="loginForm" />
+		</div>
 	</div>
 </body>
 </html>
