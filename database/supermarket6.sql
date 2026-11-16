@@ -82,3 +82,36 @@ CREATE TABLE tblImportOrderDetail6 (
 	FOREIGN KEY (tblItem6id) REFERENCES tblItem6(id)
 );
 
+-- ===== Stored procedures =====
+DELIMITER $$
+
+CREATE PROCEDURE checkLogin6(IN usr VARCHAR(255), IN pwd VARCHAR(255))
+BEGIN
+	SELECT m.*,
+		CASE
+			WHEN w.tblStaff6id IS NOT NULL THEN 'warehouse'
+			WHEN c.tblMember6id IS NOT NULL THEN 'customer'
+			ELSE 'staff'
+		END AS role
+	FROM tblMember6 m
+	LEFT JOIN tblCustomer6 c ON c.tblMember6id = m.id
+	LEFT JOIN tblWarehouseStaff6 w ON w.tblStaff6id = m.id
+	WHERE m.username = usr AND m.password = pwd;
+END$$
+
+CREATE PROCEDURE searchSupplier6(IN keyword VARCHAR(255))
+BEGIN
+	SELECT * FROM tblSupplier6
+	WHERE name LIKE CONCAT('%', keyword, '%')
+	ORDER BY name;
+END$$
+
+CREATE PROCEDURE searchItem6(IN keyword VARCHAR(255))
+BEGIN
+	SELECT * FROM tblItem6
+	WHERE name LIKE CONCAT('%', keyword, '%')
+	ORDER BY name;
+END$$
+
+DELIMITER ;
+
