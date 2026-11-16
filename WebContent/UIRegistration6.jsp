@@ -70,7 +70,6 @@
 		</form>
 		<input type="submit" value="Add" form="regForm" />
 	</div>
-	<p class="link">Already a member? <a href="UILogin6.jsp">Login</a></p>
 	</div>
 </body>
 </html>
