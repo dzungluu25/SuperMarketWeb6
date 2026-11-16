@@ -1,0 +1,168 @@
+@startuml ClassModule2_ImportGoods6
+skinparam classAttributeIconSize 0
+hide circle
+
+' ===== boundary (JSP) =====
+class "UILogin6.jsp" as UILogin6 <<boundary>> {
+  - inUsername: input
+  - inPassword: input
+  - subLogin: button
+}
+
+class "doLogin6.jsp" as doLogin6 <<boundary>>
+
+class "UIWarehouseHome6.jsp" as UIWarehouseHome6 <<boundary>> {
+  - subImportGoods: button
+}
+
+class "UISearchSupplier6.jsp" as UISearchSupplier6 <<boundary>> {
+  - inSupplierName: input
+  - subSearch: button
+  - outListSupplier: table
+  - subSelect: link
+  - subCancel: button
+}
+
+class "UIImport6.jsp" as UIImport6 <<boundary>> {
+  - outSupplier: text
+  - inItemName: input
+  - subSearch: button
+  - outListItem: table
+  - inQuantity: input
+  - inImportPrice: input
+  - subAdd: button
+  - outListDetail: table
+  - outTotalAmount: text
+  - subSubmit: button
+  - subCancel: button
+}
+
+class "doSaveImport6.jsp" as doSaveImport6 <<boundary>>
+
+' ===== control (DAO) =====
+class DAO6 <<control>> {
+  # {static} con: Connection
+  + DAO6()
+}
+
+class MemberDAO6 <<control>> {
+  + checkLogin(m: Member6): boolean
+}
+
+class SupplierDAO6 <<control>> {
+  + searchSupplier(key: String): ArrayList<Supplier6>
+}
+
+class ItemDAO6 <<control>> {
+  + searchItem(key: String): ArrayList<Item6>
+}
+
+class ImportOrderDAO6 <<control>> {
+  + saveImport(io: ImportOrder6): boolean
+}
+
+' ===== entity =====
+class Member6 <<entity>> {
+  - id: int
+  - username: String
+  - password: String
+  - fullName: String
+  - address: String
+  - phone: String
+  - email: String
+  - registerDate: Date
+  - status: String
+}
+
+abstract class Staff6 <<entity>> {
+  - staffCode: String
+  - position: String
+  - startDate: Date
+}
+
+class WarehouseStaff6 <<entity>>
+
+class Supplier6 <<entity>> {
+  - id: int
+  - name: String
+  - address: String
+  - phone: String
+  - email: String
+  - description: String
+}
+
+class ItemCategory6 <<entity>> {
+  - id: int
+  - name: String
+  - description: String
+}
+
+class Item6 <<entity>> {
+  - id: int
+  - name: String
+  - unit: String
+  - price: float
+  - stockQuantity: int
+  - description: String
+  - status: String
+  - category: ItemCategory6
+}
+
+class ImportOrder6 <<entity>> {
+  - id: int
+  - importDate: Date
+  - supplier: Supplier6
+  - warehouseStaff: WarehouseStaff6
+  - listDetail: ArrayList<ImportOrderDetail6>
+  + getTotalAmount(): float
+}
+
+class ImportOrderDetail6 <<entity>> {
+  - id: int
+  - quantity: int
+  - importPrice: float
+  - item: Item6
+  + getAmount(): float
+}
+
+' ===== dieu huong giua cac trang =====
+UILogin6 --> doLogin6
+doLogin6 --> UIWarehouseHome6
+UIWarehouseHome6 --> UISearchSupplier6
+UISearchSupplier6 --> UIImport6
+UIImport6 --> doSaveImport6
+doSaveImport6 --> UIWarehouseHome6
+
+' ===== trang goi DAO =====
+doLogin6 ..> MemberDAO6
+UISearchSupplier6 ..> SupplierDAO6
+UIImport6 ..> ItemDAO6
+doSaveImport6 ..> ImportOrderDAO6
+
+' ===== trang dung entity =====
+doLogin6 ..> Member6
+UIImport6 ..> ImportOrder6
+UIImport6 ..> ImportOrderDetail6
+
+' ===== DAO dung entity =====
+MemberDAO6 ..> Member6
+SupplierDAO6 ..> Supplier6
+ItemDAO6 ..> Item6
+ImportOrderDAO6 ..> ImportOrder6
+
+' ===== ke thua =====
+DAO6 <|-- MemberDAO6
+DAO6 <|-- SupplierDAO6
+DAO6 <|-- ItemDAO6
+DAO6 <|-- ImportOrderDAO6
+Member6 <|-- Staff6
+Staff6 <|-- WarehouseStaff6
+
+' ===== quan he giua cac entity =====
+ImportOrder6 *-- ImportOrderDetail6
+ImportOrder6 o-- Supplier6
+ImportOrder6 o-- WarehouseStaff6
+ImportOrderDetail6 o-- Item6
+Item6 o-- ItemCategory6
+
+@enduml

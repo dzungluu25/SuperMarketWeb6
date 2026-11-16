@@ -1,0 +1,170 @@
+@startuml DatabaseDesign6
+hide circle
+skinparam linetype ortho
+
+entity tblMember6 {
+  * id : INT <<PK>>
+  --
+  username : VARCHAR(50)
+  password : VARCHAR(255)
+  fullName : VARCHAR(100)
+  address : VARCHAR(255)
+  phone : VARCHAR(15)
+  email : VARCHAR(100)
+  registerDate : DATE
+  status : VARCHAR(20)
+}
+
+entity tblCustomer6 {
+  * tblMember6id : INT <<PK, FK>>
+  --
+  dateOfBirth : DATE
+}
+
+entity tblStaff6 {
+  * tblMember6id : INT <<PK, FK>>
+  --
+  staffCode : VARCHAR(20)
+  position : VARCHAR(50)
+  startDate : DATE
+}
+
+entity tblSaler6 {
+  * tblStaff6id : INT <<PK, FK>>
+}
+
+entity tblWarehouseStaff6 {
+  * tblStaff6id : INT <<PK, FK>>
+}
+
+entity tblManagementStaff6 {
+  * tblStaff6id : INT <<PK, FK>>
+}
+
+entity tblDeliveryStaff6 {
+  * tblStaff6id : INT <<PK, FK>>
+}
+
+entity tblCategory6 {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(100)
+  description : VARCHAR(255)
+}
+
+entity tblItem6 {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(100)
+  unit : VARCHAR(20)
+  price : FLOAT
+  stockQuantity : INT
+  description : VARCHAR(255)
+  status : VARCHAR(20)
+  tblCategory6id : INT <<FK>>
+}
+
+entity tblSupplier6 {
+  * id : INT <<PK>>
+  --
+  name : VARCHAR(100)
+  address : VARCHAR(255)
+  phone : VARCHAR(15)
+  email : VARCHAR(100)
+  description : VARCHAR(255)
+}
+
+entity tblCart6 {
+  * id : INT <<PK>>
+  --
+  tblCustomer6id : INT <<FK>>
+}
+
+entity tblCartItem6 {
+  * id : INT <<PK>>
+  --
+  quantity : INT
+  tblCart6id : INT <<FK>>
+  tblItem6id : INT <<FK>>
+}
+
+entity tblOnlineOrder6 {
+  * id : INT <<PK>>
+  --
+  orderDate : DATE
+  deliveryAddress : VARCHAR(255)
+  status : VARCHAR(20)
+  tblCustomer6id : INT <<FK>>
+  tblWarehouseStaff6id : INT <<FK>>
+  tblDeliveryStaff6id : INT <<FK>>
+}
+
+entity tblOnlineOrderDetail6 {
+  * id : INT <<PK>>
+  --
+  quantity : INT
+  price : FLOAT
+  tblOnlineOrder6id : INT <<FK>>
+  tblItem6id : INT <<FK>>
+}
+
+entity tblSaleInvoice6 {
+  * id : INT <<PK>>
+  --
+  saleDate : DATE
+  tblSaler6id : INT <<FK>>
+}
+
+entity tblSaleInvoiceDetail6 {
+  * id : INT <<PK>>
+  --
+  quantity : INT
+  price : FLOAT
+  tblSaleInvoice6id : INT <<FK>>
+  tblItem6id : INT <<FK>>
+}
+
+entity tblImportOrder6 {
+  * id : INT <<PK>>
+  --
+  importDate : DATE
+  tblSupplier6id : INT <<FK>>
+  tblWarehouseStaff6id : INT <<FK>>
+}
+
+entity tblImportOrderDetail6 {
+  * id : INT <<PK>>
+  --
+  quantity : INT
+  importPrice : FLOAT
+  tblImportOrder6id : INT <<FK>>
+  tblItem6id : INT <<FK>>
+}
+
+' ===== 1 - 1 (ke thua) =====
+tblMember6 ||--|| tblCustomer6
+tblMember6 ||--|| tblStaff6
+tblStaff6 ||--|| tblSaler6
+tblStaff6 ||--|| tblWarehouseStaff6
+tblStaff6 ||--|| tblManagementStaff6
+tblStaff6 ||--|| tblDeliveryStaff6
+tblCustomer6 ||--|| tblCart6
+
+' ===== 1 - n =====
+tblCategory6 ||--o{ tblItem6
+tblCart6 ||--o{ tblCartItem6
+tblItem6 ||--o{ tblCartItem6
+tblCustomer6 ||--o{ tblOnlineOrder6
+tblWarehouseStaff6 ||--o{ tblOnlineOrder6
+tblDeliveryStaff6 ||--o{ tblOnlineOrder6
+tblOnlineOrder6 ||--o{ tblOnlineOrderDetail6
+tblItem6 ||--o{ tblOnlineOrderDetail6
+tblSaler6 ||--o{ tblSaleInvoice6
+tblSaleInvoice6 ||--o{ tblSaleInvoiceDetail6
+tblItem6 ||--o{ tblSaleInvoiceDetail6
+tblSupplier6 ||--o{ tblImportOrder6
+tblWarehouseStaff6 ||--o{ tblImportOrder6
+tblImportOrder6 ||--o{ tblImportOrderDetail6
+tblItem6 ||--o{ tblImportOrderDetail6
+
+@enduml

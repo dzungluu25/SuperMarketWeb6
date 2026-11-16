@@ -1,0 +1,77 @@
+@startuml ClassModule1_RegisterMember6
+skinparam classAttributeIconSize 0
+hide circle
+
+class "UIHome6.jsp" as UIHome6 <<boundary>> {
+  - subRegister: button
+  - subLogin: link
+}
+
+class "UIRegistration6.jsp" as UIRegistration6 <<boundary>> {
+  - inFullName: input
+  - inDateOfBirth: input
+  - inAddress: input
+  - inPhone: input
+  - inEmail: input
+  - inUsername: input
+  - inPassword: input
+  - inConfirmPassword: input
+  - subAdd: button
+}
+
+class "UIConfirm6.jsp" as UIConfirm6 <<boundary>> {
+  - outCustomerInfo: text
+  - subConfirm: button
+  - subCancel: button
+  + validate(): boolean
+}
+
+class "doAddCustomer6.jsp" as doAddCustomer6 <<boundary>>
+
+class DAO6 <<control>> {
+  # {static} con: Connection
+  + DAO6()
+}
+
+class CustomerDAO6 <<control>> {
+  + CustomerDAO6()
+  + checkExisted(c: Customer6): String
+  + addCustomer(c: Customer6): boolean
+}
+
+class Member6 <<entity>> {
+  - id: int
+  - username: String
+  - password: String
+  - fullName: String
+  - address: String
+  - phone: String
+  - email: String
+  - registerDate: Date
+  - status: String
+  + Member6()
+  + getters/setters()
+}
+
+class Customer6 <<entity>> {
+  - dateOfBirth: Date
+  + Customer6()
+  + getters/setters()
+}
+
+' ===== dieu huong giua cac trang =====
+UIHome6 --> UIRegistration6
+UIRegistration6 --> UIConfirm6
+UIConfirm6 --> doAddCustomer6
+doAddCustomer6 --> UIHome6
+
+' ===== goi DAO va dung entity =====
+UIConfirm6 ..> Customer6
+doAddCustomer6 ..> CustomerDAO6
+CustomerDAO6 ..> Customer6
+
+' ===== ke thua =====
+DAO6 <|-- CustomerDAO6
+Member6 <|-- Customer6
+
+@enduml

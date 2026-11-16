@@ -1,0 +1,55 @@
+@startuml SequenceModule1_RegisterMember6
+autonumber
+skinparam sequenceMessageAlign center
+
+actor Customer
+boundary "UIHome6.jsp" as UIHome6
+boundary "UIRegistration6.jsp" as UIRegistration6
+boundary "UIConfirm6.jsp" as UIConfirm6
+boundary "doAddCustomer6.jsp" as doAddCustomer6
+control CustomerDAO6
+entity Customer6
+
+Customer -> UIHome6 : click Register as member
+activate UIHome6
+UIHome6 -> UIRegistration6 : call
+deactivate UIHome6
+activate UIRegistration6
+UIRegistration6 --> Customer : show
+Customer -> UIRegistration6 : enter information, click Add
+UIRegistration6 -> UIConfirm6 : call
+deactivate UIRegistration6
+activate UIConfirm6
+UIConfirm6 -> Customer6 : call
+activate Customer6
+Customer6 -> Customer6 : Customer6()
+Customer6 --> UIConfirm6 : return
+deactivate Customer6
+UIConfirm6 -> UIConfirm6 : validate()
+UIConfirm6 --> Customer : show
+Customer -> UIConfirm6 : click Confirm
+UIConfirm6 -> doAddCustomer6 : call
+deactivate UIConfirm6
+activate doAddCustomer6
+doAddCustomer6 -> CustomerDAO6 : call
+activate CustomerDAO6
+CustomerDAO6 -> CustomerDAO6 : checkExisted()
+CustomerDAO6 --> doAddCustomer6 : return
+deactivate CustomerDAO6
+doAddCustomer6 -> CustomerDAO6 : call
+activate CustomerDAO6
+CustomerDAO6 -> CustomerDAO6 : addCustomer()
+activate CustomerDAO6
+CustomerDAO6 -> CustomerDAO6 : save to database
+deactivate CustomerDAO6
+CustomerDAO6 --> doAddCustomer6 : return
+deactivate CustomerDAO6
+doAddCustomer6 --> Customer : show success message
+Customer -> doAddCustomer6 : click OK
+doAddCustomer6 -> UIHome6 : call
+deactivate doAddCustomer6
+activate UIHome6
+UIHome6 --> Customer : show
+deactivate UIHome6
+
+@enduml

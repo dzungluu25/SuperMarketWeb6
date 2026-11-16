@@ -1,0 +1,152 @@
+@startuml EntityClassDiagram6
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+class Member6 {
+  - id: int
+  - username: String
+  - password: String
+  - fullName: String
+  - address: String
+  - phone: String
+  - email: String
+  - registerDate: Date
+  - status: String
+}
+
+class Customer6 {
+  - dateOfBirth: Date
+  - cart: Cart6
+}
+
+abstract class Staff6 {
+  - staffCode: String
+  - position: String
+  - startDate: Date
+}
+
+class Saler6
+class WarehouseStaff6
+class ManagementStaff6
+class DeliveryStaff6
+
+class ItemCategory6 {
+  - id: int
+  - name: String
+  - description: String
+}
+
+class Item6 {
+  - id: int
+  - name: String
+  - unit: String
+  - price: float
+  - stockQuantity: int
+  - description: String
+  - status: String
+  - category: ItemCategory6
+}
+
+class Supplier6 {
+  - id: int
+  - name: String
+  - address: String
+  - phone: String
+  - email: String
+  - description: String
+}
+
+class Cart6 {
+  - id: int
+  - listCartItem: CartItem6[]
+}
+
+class CartItem6 {
+  - id: int
+  - quantity: int
+  - item: Item6
+}
+
+class OnlineOrder6 {
+  - id: int
+  - orderDate: Date
+  - deliveryAddress: String
+  - status: String
+  - totalAmount: float
+  - customer: Customer6
+  - warehouseStaff: WarehouseStaff6
+  - deliveryStaff: DeliveryStaff6
+  - listDetail: OnlineOrderDetail6[]
+}
+
+class OnlineOrderDetail6 {
+  - id: int
+  - quantity: int
+  - price: float
+  - amount: float
+  - item: Item6
+}
+
+class SaleInvoice6 {
+  - id: int
+  - saleDate: Date
+  - totalAmount: float
+  - saler: Saler6
+  - listDetail: SaleInvoiceDetail6[]
+}
+
+class SaleInvoiceDetail6 {
+  - id: int
+  - quantity: int
+  - price: float
+  - amount: float
+  - item: Item6
+}
+
+class ImportOrder6 {
+  - id: int
+  - importDate: Date
+  - totalAmount: float
+  - supplier: Supplier6
+  - warehouseStaff: WarehouseStaff6
+  - listDetail: ImportOrderDetail6[]
+}
+
+class ImportOrderDetail6 {
+  - id: int
+  - quantity: int
+  - importPrice: float
+  - amount: float
+  - item: Item6
+}
+
+' ===== Ke thua =====
+Member6 <|-- Customer6
+Member6 <|-- Staff6
+Staff6 <|-- Saler6
+Staff6 <|-- WarehouseStaff6
+Staff6 <|-- ManagementStaff6
+Staff6 <|-- DeliveryStaff6
+
+' ===== Hop thanh (composition) =====
+Customer6 *-- Cart6
+Cart6 *-- CartItem6
+OnlineOrder6 *-- OnlineOrderDetail6
+SaleInvoice6 *-- SaleInvoiceDetail6
+ImportOrder6 *-- ImportOrderDetail6
+
+' ===== Ket tap (aggregation): kim cuong o lop chua thong tin =====
+Item6 o-- ItemCategory6
+CartItem6 o-- Item6
+OnlineOrderDetail6 o-- Item6
+SaleInvoiceDetail6 o-- Item6
+ImportOrderDetail6 o-- Item6
+OnlineOrder6 o-- Customer6
+OnlineOrder6 o-- WarehouseStaff6
+OnlineOrder6 o-- DeliveryStaff6
+SaleInvoice6 o-- Saler6
+ImportOrder6 o-- Supplier6
+ImportOrder6 o-- WarehouseStaff6
+
+@enduml

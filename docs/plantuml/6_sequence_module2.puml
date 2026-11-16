@@ -1,0 +1,113 @@
+@startuml SequenceModule2_ImportGoods6
+autonumber
+skinparam sequenceMessageAlign center
+
+actor WarehouseStaff
+boundary "UILogin6.jsp" as UILogin6
+boundary "doLogin6.jsp" as doLogin6
+boundary "UIWarehouseHome6.jsp" as UIWarehouseHome6
+boundary "UISearchSupplier6.jsp" as UISearchSupplier6
+boundary "UIImport6.jsp" as UIImport6
+boundary "doSaveImport6.jsp" as doSaveImport6
+control MemberDAO6
+control SupplierDAO6
+control ItemDAO6
+control ImportOrderDAO6
+entity Member6
+entity Supplier6
+entity ImportOrder6
+entity Item6
+entity ImportOrderDetail6
+
+' ===== Dang nhap (1-8) =====
+WarehouseStaff -> UILogin6 : enter username, password, click Login
+activate UILogin6
+UILogin6 -> doLogin6 : call
+deactivate UILogin6
+activate doLogin6
+doLogin6 -> Member6 : Member6(username, password)
+doLogin6 -> MemberDAO6 : call
+activate MemberDAO6
+MemberDAO6 -> MemberDAO6 : checkLogin()
+MemberDAO6 --> doLogin6 : return
+deactivate MemberDAO6
+doLogin6 -> UIWarehouseHome6 : call
+deactivate doLogin6
+activate UIWarehouseHome6
+UIWarehouseHome6 --> WarehouseStaff : show
+
+' ===== Tim va chon nha cung cap (9-25) =====
+WarehouseStaff -> UIWarehouseHome6 : click Import goods
+UIWarehouseHome6 -> UISearchSupplier6 : call
+deactivate UIWarehouseHome6
+activate UISearchSupplier6
+UISearchSupplier6 --> WarehouseStaff : show
+WarehouseStaff -> UISearchSupplier6 : enter supplier name, click Search
+UISearchSupplier6 -> SupplierDAO6 : call
+activate SupplierDAO6
+SupplierDAO6 -> SupplierDAO6 : searchSupplier()
+SupplierDAO6 -> Supplier6 : call
+activate Supplier6
+Supplier6 -> Supplier6 : Supplier6()
+Supplier6 --> SupplierDAO6 : return
+deactivate Supplier6
+SupplierDAO6 --> UISearchSupplier6 : return
+deactivate SupplierDAO6
+UISearchSupplier6 --> WarehouseStaff : show suppliers
+WarehouseStaff -> UISearchSupplier6 : click Select a supplier
+UISearchSupplier6 -> UIImport6 : call
+deactivate UISearchSupplier6
+activate UIImport6
+UIImport6 -> ImportOrder6 : call
+activate ImportOrder6
+ImportOrder6 -> ImportOrder6 : ImportOrder6()
+ImportOrder6 --> UIImport6 : return
+deactivate ImportOrder6
+UIImport6 --> WarehouseStaff : show
+
+' ===== Nhap tung mat hang (26-39) =====
+loop until all items are added
+  WarehouseStaff -> UIImport6 : enter item name, click Search
+  UIImport6 -> ItemDAO6 : call
+  activate ItemDAO6
+  ItemDAO6 -> ItemDAO6 : searchItem()
+  ItemDAO6 -> Item6 : call
+  activate Item6
+  Item6 -> Item6 : Item6()
+  Item6 --> ItemDAO6 : return
+  deactivate Item6
+  ItemDAO6 --> UIImport6 : return
+  deactivate ItemDAO6
+  UIImport6 --> WarehouseStaff : show items
+  WarehouseStaff -> UIImport6 : enter quantity, price, click Add
+  UIImport6 -> ImportOrderDetail6 : call
+  activate ImportOrderDetail6
+  ImportOrderDetail6 -> ImportOrderDetail6 : ImportOrderDetail6()
+  ImportOrderDetail6 --> UIImport6 : return
+  deactivate ImportOrderDetail6
+  UIImport6 -> ImportOrder6 : add detail
+  UIImport6 --> WarehouseStaff : show import order
+end
+
+' ===== Luu phieu nhap (40-49) =====
+WarehouseStaff -> UIImport6 : click Submit
+UIImport6 -> doSaveImport6 : call
+deactivate UIImport6
+activate doSaveImport6
+doSaveImport6 -> ImportOrderDAO6 : call
+activate ImportOrderDAO6
+ImportOrderDAO6 -> ImportOrderDAO6 : saveImport()
+activate ImportOrderDAO6
+ImportOrderDAO6 -> ImportOrderDAO6 : save order, details, update stock
+deactivate ImportOrderDAO6
+ImportOrderDAO6 --> doSaveImport6 : return
+deactivate ImportOrderDAO6
+doSaveImport6 --> WarehouseStaff : show success message
+WarehouseStaff -> doSaveImport6 : click OK
+doSaveImport6 -> UIWarehouseHome6 : call
+deactivate doSaveImport6
+activate UIWarehouseHome6
+UIWarehouseHome6 --> WarehouseStaff : show
+deactivate UIWarehouseHome6
+
+@enduml
